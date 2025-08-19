@@ -1,37 +1,3 @@
-# Node / Package managers
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# Build outputs
-dist/
-build/
-out/
-coverage/
-
-# Next.js
-.next/
-.vercel/
-
-# Env files (keep secrets out of git)
-.env
-.env.local
-.env.*.local
-
-# OS / Editor
-.DS_Store
-.idea/
-.vscode/
-
-# Nested app-specific ignores
-distributor-map-app/node_modules/
-distributor-map-app/.next/
-distributor-map-app/.vercel/
-distributor-map-app/.env.local
-distributor-map-app/.next_dev_pid
-
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
