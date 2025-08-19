@@ -19,8 +19,18 @@ export default function Map({ filters }) {
   const [distributors, setDistributors] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [mapCenter, setMapCenter] = useState(INITIAL_CENTER);
+  const [mapZoom, setMapZoom] = useState(INITIAL_ZOOM);
 
   useEffect(() => {
+    // On small screens show a wider view covering Middle East and Africa
+    try {
+      if (typeof window !== "undefined" && window.matchMedia && window.matchMedia("(max-width: 640px)").matches) {
+        setMapCenter([12, 20]);
+        setMapZoom(1);
+      }
+    } catch {}
+
     let isMounted = true;
     setIsLoading(true);
     setError(null);
@@ -61,7 +71,7 @@ export default function Map({ filters }) {
 
   return (
     <div className="absolute inset-0">
-      <MapContainer center={INITIAL_CENTER} zoom={INITIAL_ZOOM} className="h-full w-full">
+      <MapContainer center={mapCenter} zoom={mapZoom} className="h-full w-full">
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png"
           subdomains={["a","b","c","d"]}
