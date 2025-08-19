@@ -54,6 +54,7 @@ export default function Map({ filters }) {
     }
   }, []);
 
+  useEffect(() => {
     let isMounted = true;
     setIsLoading(true);
     setError(null);
