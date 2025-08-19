@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 
-const INITIAL_CENTER = [1.35, 103.82];
+const INITIAL_CENTER = [6.927119564988526, 79.8314852076586];
 const INITIAL_ZOOM = 3;
 
 function createIcon(url) {
@@ -26,7 +26,7 @@ export default function Map({ filters }) {
     // On small screens show a wider view covering Middle East and Africa
     try {
       if (typeof window !== "undefined" && window.matchMedia && window.matchMedia("(max-width: 640px)").matches) {
-        setMapCenter([12, 20]);
+        setMapCenter([6.927119564988526, 79.8314852076586]);
         setMapZoom(1);
       }
     } catch {}
