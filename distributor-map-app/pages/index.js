@@ -22,8 +22,8 @@ export default function HomePage() {
   return (
     <div className="min-h-svh flex flex-col">
       <header className="p-2 border-b bg-white">
-        <div className="max-w-7xl mx-auto flex items-center gap-3">
-          <h1 className="text-base font-semibold whitespace-nowrap">Distributor Map</h1>
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+          <h1 className="text-base font-semibold">Distributor Map</h1>
           <Filter
             inline
             selectedContinent={selectedContinent}
@@ -32,7 +32,7 @@ export default function HomePage() {
             onSearchTextChange={setSearchText}
           />
           {isClient && (
-            <div className="ml-auto hidden sm:block">
+            <div className="sm:ml-auto hidden sm:block">
               <QRCodePanel text={window.location.href} size={56} />
             </div>
           )}

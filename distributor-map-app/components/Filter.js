@@ -7,9 +7,9 @@ export default function Filter({
 }) {
   if (inline) {
     return (
-      <div className="flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-6 w-full">
         <select
-          className="border rounded px-2 py-1 text-sm"
+          className="border rounded px-2 py-1 text-sm w-full sm:w-auto"
           value={selectedContinent}
           onChange={(e) => onContinentChange?.(e.target.value)}
           aria-label="Continent"
@@ -20,7 +20,7 @@ export default function Filter({
           <option value="africa">Africa</option>
         </select>
         <input
-          className="border rounded px-2 py-1 text-sm min-w-[160px]"
+          className="border rounded px-2 py-1 text-sm min-w-[160px] w-full sm:w-auto"
           type="text"
           placeholder="Company search"
           value={searchText}
