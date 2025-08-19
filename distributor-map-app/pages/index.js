@@ -1,17 +1,23 @@
 import dynamic from "next/dynamic";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Filter from "../components/Filter";
+import QRCodePanel from "../components/QRCode";
 
 const DynamicMap = dynamic(() => import("../components/Map"), { ssr: false });
 
 export default function HomePage() {
   const [selectedContinent, setSelectedContinent] = useState("all");
   const [searchText, setSearchText] = useState("");
+  const [isClient, setIsClient] = useState(false);
 
   const filters = useMemo(
     () => ({ selectedContinent, searchText }),
     [selectedContinent, searchText]
   );
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   return (
     <div className="min-h-svh flex flex-col">
@@ -25,6 +31,11 @@ export default function HomePage() {
             searchText={searchText}
             onSearchTextChange={setSearchText}
           />
+          {isClient && (
+            <div className="ml-auto hidden sm:block">
+              <QRCodePanel text={window.location.href} size={56} />
+            </div>
+          )}
         </div>
       </header>
 

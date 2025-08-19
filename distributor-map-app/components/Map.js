@@ -63,8 +63,9 @@ export default function Map({ filters }) {
     <div className="absolute inset-0">
       <MapContainer center={INITIAL_CENTER} zoom={INITIAL_ZOOM} className="h-full w-full">
         <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
+          url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png"
+          subdomains={["a","b","c","d"]}
+          attribution="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors &copy; <a href='https://carto.com/attributions'>CARTO</a>"
         />
 
         {filtered.map((item, idx) => {
