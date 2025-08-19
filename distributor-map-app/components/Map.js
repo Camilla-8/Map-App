@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 
 const INITIAL_CENTER = [6.927119564988526, 79.8314852076586];
-const INITIAL_ZOOM = 4;
+const INITIAL_ZOOM = 3;
 
 function getInitialViewport() {
   const isMobile =
@@ -47,7 +47,7 @@ export default function Map({ filters }) {
       const mql = window.matchMedia("(max-width: 640px)");
       const handleChange = (e) => {
         setMapCenter(INITIAL_CENTER);
-        setMapZoom(e.matches ? 1 : INITIAL_ZOOM);
+        setMapZoom(e.matches ? 2 : INITIAL_ZOOM);
       };
       mql.addEventListener?.("change", handleChange);
       return () => mql.removeEventListener?.("change", handleChange);
