@@ -47,7 +47,7 @@ export default function Map({ filters }) {
       const mql = window.matchMedia("(max-width: 640px)");
       const handleChange = (e) => {
         setMapCenter(INITIAL_CENTER);
-        setMapZoom(e.matches ? 2 : INITIAL_ZOOM);
+        setMapZoom(e.matches ? 3 : INITIAL_ZOOM);
       };
       mql.addEventListener?.("change", handleChange);
       return () => mql.removeEventListener?.("change", handleChange);
