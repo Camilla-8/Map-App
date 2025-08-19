@@ -1,9 +1,28 @@
 import { useEffect, useMemo, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 
 const INITIAL_CENTER = [6.927119564988526, 79.8314852076586];
-const INITIAL_ZOOM = 3;
+const INITIAL_ZOOM = 4;
+
+function getInitialViewport() {
+  const isMobile =
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(max-width: 640px)").matches;
+  return {
+    center: INITIAL_CENTER,
+    zoom: isMobile ? 1 : INITIAL_ZOOM,
+  };
+}
+
+function ViewportController({ center, zoom }) {
+  const map = useMap();
+  useEffect(() => {
+    map.setView(center, zoom, { animate: false });
+  }, [map, center, zoom]);
+  return null;
+}
 
 function createIcon(url) {
   return L.icon({
@@ -19,17 +38,21 @@ export default function Map({ filters }) {
   const [distributors, setDistributors] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [mapCenter, setMapCenter] = useState(INITIAL_CENTER);
-  const [mapZoom, setMapZoom] = useState(INITIAL_ZOOM);
+  const initial = getInitialViewport();
+  const [mapCenter, setMapCenter] = useState(initial.center);
+  const [mapZoom, setMapZoom] = useState(initial.zoom);
 
   useEffect(() => {
-    // On small screens show a wider view covering Middle East and Africa
-    try {
-      if (typeof window !== "undefined" && window.matchMedia && window.matchMedia("(max-width: 640px)").matches) {
-        setMapCenter([6.927119564988526, 79.8314852076586]);
-        setMapZoom(1);
-      }
-    } catch {}
+    if (typeof window !== "undefined" && typeof window.matchMedia === "function") {
+      const mql = window.matchMedia("(max-width: 640px)");
+      const handleChange = (e) => {
+        setMapCenter(INITIAL_CENTER);
+        setMapZoom(e.matches ? 1 : INITIAL_ZOOM);
+      };
+      mql.addEventListener?.("change", handleChange);
+      return () => mql.removeEventListener?.("change", handleChange);
+    }
+  }, []);
 
     let isMounted = true;
     setIsLoading(true);
@@ -72,6 +95,7 @@ export default function Map({ filters }) {
   return (
     <div className="absolute inset-0">
       <MapContainer center={mapCenter} zoom={mapZoom} className="h-full w-full">
+        <ViewportController center={mapCenter} zoom={mapZoom} />
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png"
           subdomains={["a","b","c","d"]}
